@@ -7,3 +7,7 @@ The requirements are as follows:
 -First three requirements are front end handled by dtree https://github.com/ErikGartner/dTree
 -The final requirement is ambigious "any family tree" but we will assume it is any family tree formatted like the test data
 
+Extra info
+- If children = then marriage
+- If both married people no parents then root. 
+- If one married person with no parent then they in law.(not sure if this needed)

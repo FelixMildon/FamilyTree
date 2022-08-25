@@ -1,14 +1,3 @@
-function TestTreeConvertToDTree(familyTree) {         //TestTree
-    //get all non parent items, the two items with matching children is root.
-    //
-    //for each item in list, check if children match
-    //
-    familyTree.forEach((id) => {
-        console.log(id);
-    });
-    return data;                                   //DTree
-  }
-//TURN THIS
 const familyTree = [
     {
     id: 2351232112252,
@@ -72,67 +61,46 @@ const familyTree = [
     parents: [1231239887112, 2351232112252],
     },
     ];
-
-    //Into THIISSSSSS:
-    let data = [{                                        //Example below:v
-    "name": "Niclas Superlongsurname",
-    "class": "man",
-    "textClass": "emphasis",
-    "marriages": [{
-      "spouse": {
-        "name": "Iliana",
-        "class": "woman",
-        "extra": {
-          "nickname": "Illi"
-        }
-      },
-      "children": [{
-        "name": "James",
-        "class": "man",
-        "marriages": [{
-          "spouse": {
-            "name": "Alexandra",
-            "class": "woman"
-          },
-          "children": [{
-            "name": "Eric",
-            "class": "man",
-            "marriages": [{
-              "spouse": {
-                "name": "Eva",
-                "class": "woman"
-              }
-            }]
-          }, {
-            "name": "Jane",
-            "class": "woman"
-          }, {
-            "name": "Jasper",
-            "class": "man"
-          }, {
-            "name": "Emma",
-            "class": "woman"
-          }, {
-            "name": "Julia",
-            "class": "woman"
-          }, {
-            "name": "Jessica",
-            "class": "woman"
-          }]
-        }]
-      }]
-    }]
-  }]
-
-  let parentRootglobal = [] 
+  let options = {
+  target: '#graph',
+  debug: false,
+  width: 600,
+  height: 600,
+  hideMarriageNodes: true,
+  marriageNodeSize: 10,
+  callbacks: {
+    /*
+      Callbacks should only be overwritten on a need to basis.
+      See the section about callbacks below.
+    */
+  },
+  margin: {
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0
+  },
+  nodeWidth: 100,
+  styles: {
+    node: 'node',
+    linage: 'linage',
+    marriage: 'marriage',
+    text: 'nodeText'
+  }
+}
+let parentRootglobal = [] 
 let tree = dTree.init(data,options)
   //console.log(familyTree[3].children)
   //get no parent elements
-  //find root parents
   familyTree.forEach((familyMember) => {
     if(familyMember.parents.length == 0){
+        console.log("Outter LOOP");
         let compare = familyMember
-        let parentRoot = []  
+        let parentRoot = []
+        console.log(compare);
+        //console.log(familyMember.children.sort());
+        console.log("INNER LOOP");
+        
         familyTree.forEach((familyMember) => {
     if(familyMember.parents.length == 0){
         console.log(compare.children.sort())      //compare this
@@ -157,28 +125,8 @@ let tree = dTree.init(data,options)
   }
     });
   //find no parent element with matching children
-  console.log("tada parent nodez")
+  console.log("tada parent node")
   console.log(parentRootglobal)
+  //get root children
   
-  function getChild(n){
-    
-    let nChild = []
-    n.forEach(element => {
-      familyTree.forEach(person => {
-        (element.children).forEach(elementelement => {
-          if(person.id == elementelement){
-          nChild.push({...person})
-       
-      }
-        });
-    });
-    });
-    if(nChild.length == 0){
-      return false
-    }else{
-      console.log(n)
-      return getChild(nChild)
-    }
-    
-  }
-  console.log(getChild(parentRootglobal.slice(0,1)))
+  //get children children

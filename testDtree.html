@@ -11,12 +11,12 @@
     fill: none;
     stroke: black;
   }
-  .man {
+  .male {
     background-color: lightblue;
     border-style: solid;
     border-width: 1px;
   }
-  .woman {
+  .female {
     background-color: pink;
     border-style: solid;
     border-width: 1px;
@@ -35,52 +35,72 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js" integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdn.jsdelivr.net/npm/d3-dtree@2.4.1/dist/dTree.min.js"> </script>
 <script>let data = [{                                        //Example below:v
-    "name": "Niclas Superlongsurname",
-    "class": "man",
+    "name": "Billy",
+    "class": "male",
     "textClass": "emphasis",
     "marriages": [{
       "spouse": {
-        "name": "Iliana",
-        "class": "woman",
-        "extra": {
-          "nickname": "Illi"
-        }
+        "name": "Sally",
+        "class": "female"
       },
       "children": [{
-        "name": "James",
-        "class": "man",
+        "name": "Suzie",
+        "class": "female",
         "marriages": [{
           "spouse": {
-            "name": "Alexandra",
-            "class": "woman"
+            "name": "Sam",
+            "class": "male"
           },
+          
           "children": [{
-            "name": "Eric",
-            "class": "man",
+            "name": "Josh",
+            "class": "male",
             "marriages": [{
               "spouse": {
-                "name": "Eva",
-                "class": "woman"
-              }
+                "name": "Sarah",
+                "class": "female"
+              },"children": [{
+            "name": "Jim",
+            "class": "male",
+            "marriages": [{
+              "spouse": {
+                "name": "Clara",
+                "class": "female"
+              },
+              "children": [{
+            "name": "Joe",
+            "class": "male",
+            
+          }]
+              
+            }]
+          }]
+              
             }]
           }, {
-            "name": "Jane",
-            "class": "woman"
-          }, {
-            "name": "Jasper",
-            "class": "man"
-          }, {
-            "name": "Emma",
-            "class": "woman"
-          }, {
-            "name": "Julia",
-            "class": "woman"
-          }, {
-            "name": "Jessica",
-            "class": "woman"
+            "name": "Charlie",
+            "class": "male",
+            "marriages": [{
+              "spouse": {
+                "name": "Jessie",
+                "class": "female"
+              },
+              
+              "children": [{
+            "name": "Bob",
+            "class": "male",
+            
+          }]
+            }]
           }]
         }]
-      }]
+      }, {
+            "name": "Ricky",
+            "class": "male"
+          }, {
+            "name": "Julian",
+            "class": "male"
+          }]
     }]
   }]
   const familyTree = [
@@ -173,10 +193,216 @@
     text: 'nodeText'
   }
 }
-  let tree = dTree.init(data,options)
-  familyTree.forEach((id) => {
-        console.log(id);
+let parentRootglobal = [] 
+let tree = dTree.init(data,options)
+  //console.log(familyTree[3].children)
+  //get no parent elements
+  //find root parents
+  familyTree.forEach((familyMember) => {
+    if(familyMember.parents.length == 0){
+        let compare = familyMember
+        let parentRoot = []  
+        familyTree.forEach((familyMember) => {
+    if(familyMember.parents.length == 0){
+        console.log(compare.children.sort())      //compare this
+        console.log(familyMember.children.sort());//with this 
+        console.log(JSON.stringify(compare.children.sort()) === JSON.stringify(familyMember.children.sort()))
+          //if two matches
+        if(JSON.stringify(compare.children.sort()) === JSON.stringify(familyMember.children.sort())){
+          //push familyMember into a object array
+          parentRoot.push(familyMember)
+        }
+          //return the two matches as root parent
+        console.log(parentRoot)
+        if(parentRoot.length === 2){
+          console.log("THis value/if condition means return parentroot and break forlooP")
+          parentRootglobal = parentRoot
+        }
+   
+  }
     });
+
+
+  }
+    });
+  //find no parent element with matching children
+  console.log("tada parent nodez")
+  console.log(parentRootglobal)
+  
+  function getChild(n){
+    console.log(n)
+    let nChild = []
+    n.forEach(element => {
+      familyTree.forEach(person => {
+        (element.children).forEach(elementelement => {
+          if(person.id == elementelement){
+          nChild.push({...person})
+          }
+        });
+      });
+    });
+    if(nChild.length == 0){
+      return false
+    }else{
+      return getChild(nChild)
+    }
+    
+  }
+  console.log(getChild(parentRootglobal.slice(0,1)))
+
+
+/*
+  [{
+    name: "Father",                         // The name of the node
+    class: "node",                          // The CSS class of the node
+    textClass: "nodeText",                  // The CSS class of the text in the node
+    depthOffset: 1,                         // Generational height offset
+    marriages: [{                           // Marriages is a list of nodes
+      spouse: {                             // Each marriage has one spouse
+        name: "Mother",
+      },
+      children: [{                          // List of children nodes
+        name: "Child",
+      }]
+    }],
+    extra: {}                               // Custom data passed to renderers
+  }]
+  let data = [{                                        //Example below:v
+    "name": "Niclas Superlongsurname",
+    "class": "man",
+    "textClass": "emphasis",
+    "marriages": [{
+      "spouse": {
+        "name": "Iliana",
+        "class": "woman",
+        "extra": {
+          "nickname": "Illi"
+        }
+      },
+      "children": [{
+        "name": "James",
+        "class": "man",
+        "marriages": [{
+          "spouse": {
+            "name": "Alexandra",
+            "class": "woman"
+          },
+          "children": [{
+            "name": "Eric",
+            "class": "man",
+            "marriages": [{
+              "spouse": {
+                "name": "Eva",
+                "class": "woman"
+              }
+            }]
+          }, {
+            "name": "Jane",
+            "class": "woman"
+          }, {
+            "name": "Jasper",
+            "class": "man"
+          }, {
+            "name": "Emma",
+            "class": "woman"
+          }, {
+            "name": "Julia",
+            "class": "woman"
+          }, {
+            "name": "Jessica",
+            "class": "woman"
+          }]
+        }]
+      }]
+    }]
+  }]
+
+
+*/
+
+  /*
+  //get root CHILDREN
+  let rootChildrenObj = []
+  let rootChildren = [parentRootglobal[0].children]
+  console.log(parentRootglobal[0].children)
+  //foreach child id search family tree and return matching object
+  rootChildren[0].forEach(child => {
+    console.log(child)//print each child id
+    familyTree.forEach(person => {//goes through family tree
+      console.log(person.id == child)//if true then child.
+      if(person.id == child){
+        console.log("adding to root children")
+        console.log(person)
+        rootChildrenObj.push(person)
+      }
+      //console.log(person)
+      
+    });
+  });
+  //console.log(rootChildren[0][0])
+  //get children children
+  let grandChildren = []
+  let gchild = []
+  rootChildrenObj.forEach(childs => {
+    if(childs.children.length > 0){
+      grandChildren.push(childs.children)
+    }
+  });
+  grandChildren[0].forEach(childschild => {
+    familyTree.forEach(person => {
+      if(person.id == childschild){
+        gchild.push(person)
+      }
+    });
+  });
+  
+  
+
+  
+  let gggchild = []
+  gchild.forEach(element => {
+    familyTree.forEach(person => {
+      if(person.id == element.children){
+        gggchild.push(person)
+      }
+    });
+  });
+
+  let ggggchild = []
+  //search family tree for children
+  gggchild.forEach(element => {
+    familyTree.forEach(person => {
+      if(person.id == element.children){
+        ggggchild.push(person)
+      }
+    });
+  });
+*/
+  
+/*
+  function factorial(n) {
+  if (n === 0 || n === 1) {
+    return 1;
+  } else {
+    return n * factorial(n - 1);
+  }
+}
+*/
+
+/*
+//console.log(familyTree)
+  console.log(parentRootglobal)
+  console.log(rootChildrenObj)
+  //console.log(grandChildren)
+  console.log(gchild)
+  console.log(gggchild)
+
+  
+  console.log(ggggchild)
+
+  //console.log(parentRootglobal[0].children)
+*/
+
 </script>
 </body>
 </html>
