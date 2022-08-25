@@ -1,7 +1,7 @@
 # FamilyTree!
 
-The getChild function is a recursive function so bonus point there. Lines 232-250
-Got a getRootParent function lines 196-230 
+The getChild function is a recursive function so bonus point there getChild is on lines 232-250.
+Also handcrafted a getRootParent function, lines 196-230 
 
 
 To view download the zip file by clicking download ZIP:
