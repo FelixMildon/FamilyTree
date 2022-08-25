@@ -12,7 +12,7 @@ To view download the zip file by clicking download ZIP:
 
 
 
-Then to view the webpage open the largest testDTree file 
+Then to view the webpage open the largest testDTree file in an internet browser e.g chrome, firefox, edge ....safari
 
 
 
