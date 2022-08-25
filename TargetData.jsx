@@ -13,7 +13,7 @@
     }],
     extra: {}                               // Custom data passed to renderers
   }]
-  [{                                        //Example below
+  [{                                        //Example below:v
     "name": "Niclas Superlongsurname",
     "class": "man",
     "textClass": "emphasis",

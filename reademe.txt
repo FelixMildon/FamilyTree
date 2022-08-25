@@ -1,0 +1,9 @@
+The requirements are as follows:
+- People with a gender of "female" should have background-color lightpink
+- People with gender of "male" should have background-color lightblue.
+- Each box should contain the person’s name
+- The component should be able to consume any family tree, not just the one provided.
+
+-First three requirements are front end handled by dtree https://github.com/ErikGartner/dTree
+-The final requirement is ambigious "any family tree" but we will assume it is any family tree formatted like the test data
+
